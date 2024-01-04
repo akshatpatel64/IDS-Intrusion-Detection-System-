@@ -1,0 +1,16 @@
+The focus of my project is on the development of an Intrusion Detection System (IDS) capable of
+detecting unauthorized traffic and potential security breaches within a network. The system utilizes Snort
+rules for packet sniffing, allowing for the differentiation of IP addresses originating from outside the
+organization's network. The packet traffic for the project was obtained from Charusat University's
+network, with the system designed to capture and detect different types of packets, including those
+originating from Google, PDF, MP3, and e-governance websites. Additionally, the system is capable of
+detecting the use of FTP protocol, JPEG, GZIP, and MP3 packets.
+
+My motivation for this project was to address the security loopholes present in the e-governance website
+of Charusat University, as well as to provide a more secure and dependable solution for maintaining a
+healthy internet environment. To achieve this, the IDS includes constant monitoring and restriction of
+student access to vulnerable IPs, as well as the deployment of Intrusion Prevention System (IPS). The
+system also includes an application that eliminates the need to monitor CMD, as it tracks and logs all data
+directly to the application. The app also features a user-friendly interface and the ability to create unique
+and consolidated logs of IPs accessing different packets. Overall, this project aims to improve the security
+and reliability of network systems, particularly in educational institutions.
