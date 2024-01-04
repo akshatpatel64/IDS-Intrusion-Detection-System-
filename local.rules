@@ -1,0 +1,66 @@
+# Copyright 2001-2019 Sourcefire, Inc. All Rights Reserved.
+#
+# This file contains (i) proprietary rules that were created, tested and certified by
+# Sourcefire, Inc. (the "VRT Certified Rules") that are distributed under the VRT
+# Certified Rules License Agreement (v 2.0), and (ii) rules that were created by
+# Sourcefire and other third parties (the "GPL Rules") that are distributed under the
+# GNU General Public License (GPL), v2.
+# 
+# The VRT Certified Rules are owned by Sourcefire, Inc. The GPL Rules were created
+# by Sourcefire and other third parties. The GPL Rules created by Sourcefire are
+# owned by Sourcefire, Inc., and the GPL Rules not created by Sourcefire are owned by
+# their respective creators. Please see http://www.snort.org/snort/snort-team/ for a
+# list of third party owners and their respective copyrights.
+# 
+# In order to determine what rules are VRT Certified Rules or GPL Rules, please refer
+# to the VRT Certified Rules License Agreement (v2.0).
+#
+#-------------
+# LOCAL RULES
+#-------------
+
+#Ping/DoS Attack
+alert icmp any any -> $HOME_NET any (msg:"ICMP PING Alert"; sid:1001;)
+alert icmp $HOME_NET any -> any any (msg:"ICMP PING Alert"; sid:1002;)
+#SSH 
+alert tcp $EXTERNAL_NET any -> $HOME_NET 22 (msg:"SSH Alert"; sid:2001;)
+#FTP
+alert tcp any any -> $HOME_NET 21 (msg:"FTP connection Alert"; sid:3001;)
+alert tcp $HOME_NET 21 -> any any (msg:"FTP connection Alert"; sid:3002;)
+#E-Gov Access
+alert tcp any any <> [172.16.0.14,172.16.1.20] any (msg:"E-Gov Access"; sid:4001;)
+#File Transfers Detection (GIF,PDF,PNG,ZIP,JPEG,MP3,AVI,Flash SWF,Flash Video,etc)
+alert tcp any any <> any any (content:"GIF89a"; msg:"GIF";sid:6001;)
+alert tcp any any <> any any (content:"|25 50 44 46 2D 31 2E 34 0A|"; msg:"PDF";sid:6002;)
+alert tcp any any <> any any (content:"|25 50 44 46|"; msg:"PDF";sid:6003;)
+alert tcp any any <> any any (content:"|89 50 4E 47|"; msg:"PNG";sid:6004;)
+alert tcp any any <> any any (content:"|50 4B 03 04|"; msg:"ZIP";sid:6005;)
+alert tcp any any <> any any (content:"|FF D8|"; msg:"JPEG";sid:6006;)
+alert tcp any any <> any any (content:"|49 44 33|"; msg:"MP3";sid:6007;)
+alert tcp any any <> any any (content:"|52 49 46 46|"; msg:"AVI";sid:6008;)
+alert tcp any any <> any any (content:"|46 57 53|"; msg:"Flash SWF";sid:6009;)
+alert tcp any any <> any any (content:"|46 4C 56|"; msg:"Flash Video";sid:6010;)
+alert tcp any any <> any any (content:"|1F 8B 08|"; msg:"GZip";sid:6011;)
+alert tcp any any <> any any (content:"|52 61 72 21 1A 07 00|"; msg:"RAR";sid:6012;)
+alert tcp any any <> any any (content:"|D0 CF 11 E0 A1 B1 1A E1|"; msg:"Office 2010";sid:6013;)
+alert tcp any any <> any any (content:"|49 44 33 03|"; msg:"MP3";sid:6014;)
+
+#Access of ChatGPT, GeeksforGeeks, TutorialPoint, stackoverflow, etc during the Examination)
+alert tcp $HOME_NET any <> 184.25.108.27 any (msg:"GeeksforGeeks Access"; sid:8001;)
+alert tcp $HOME_NET any <> 152.199.38.98 any (msg:"TutorialPoint Access"; sid:8002; rev:1;)
+alert tcp $HOME_NET any <> 104.18.2.161 any (msg:"ChatGPT Access"; sid:8003; rev:1;)
+alert tcp $HOME_NET any <> [162.159.153.247,34.200.110.22,54.84.99.170,52.54.177.11,54.84.28.205,
+      52.21.218.105,18.211.120.67,54.197.243.175,52.204.170.23] any (msg:"Quora Access"; sid:8004;)
+alert tcp $HOME_NET any <> [192.229.179.87,13.248.240.135,76.223.115.82] any (msg:"w3schools Access"; sid:8005;)
+alert tcp $HOME_NET any <> [151.101.65.69,151.101.129.69,151.101.1.69,151.101.65.69,151.101.193.69] any 
+      (msg:"StackOverflow Access"; sid:8006; rev:1;)
+alert tcp $HOME_NET any <> [172.67.211.196,207.148.248.143] any (msg:"EasyEngineering Access"; sid:8007;)
+#Access of Google Services from University
+alert tcp $HOME_NET any <> [172.217.174.238,162.243.10.151,8.8.8.8] any (msg:"Google Access"; sid:7001;)
+alert tcp $HOME_NET any <> [142.250.199.174,142.250.66.14,142.250.217.142,142.250.194.110,
+      142.250.199.142,142.251.42.46] any (msg:"Google Access"; sid:7002; rev:1;)
+#Access of YouTube Services from University
+alert tcp $HOME_NET any <> [72.217.27.206,172.217.160.206] any (msg:"YouTube Access"; sid:10001;)
+#Access of Gmail Services from University
+alert tcp $HOME_NET any <> [142.250.183.197,142.250.192.133,142.251.42.5,172.217.166.69] any 
+      (msg:"Gmail Access"; sid:11001; )
