@@ -18,7 +18,6 @@
 #------------
 # DDOS RULES
 #------------
-#https://github.com/eldondev/Snort/blob/master/rules/ddos.rules :SHAH DEVANSHI
 
 alert icmp $EXTERNAL_NET any -> $HOME_NET any (msg:"DDOS TFN Probe"; icmp_id:678; itype:8; content:"1234"; reference:arachnids,443; classtype:attempted-recon; sid:221; rev:4;)
 
